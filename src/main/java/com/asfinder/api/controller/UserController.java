@@ -2,6 +2,7 @@ package com.asfinder.api.controller;
 
 import com.asfinder.api.model.User;
 import com.asfinder.api.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +11,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/userController")
+@RequiredArgsConstructor
 public class UserController {
 
     //@Autowired
     //UserRepository userRepository;
 
-    @Autowired
-    UserService userService;
+
+    private final UserService userService;
 
     /*@Autowired
     public UserController(UserRepository userRepository, UserService userService){
