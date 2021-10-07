@@ -2,7 +2,7 @@ package com.asfinder.api.service;
 
 import com.asfinder.api.model.User;
 import com.asfinder.api.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -10,16 +10,10 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
-
-    /*private UserRepository userRepository;
-    public UserService(UserRepository userRepository){
-        this.userRepository = userRepository;
-
-    }*/
+    private final UserRepository userRepository;
 
     public List<User> getUsers(){
         return userRepository.findAll();
