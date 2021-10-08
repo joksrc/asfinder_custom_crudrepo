@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 
 @RestController
@@ -14,47 +16,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    //@Autowired
-    //UserRepository userRepository;
-
-
     private final UserService userService;
-
-    /*@Autowired
-    public UserController(UserRepository userRepository, UserService userService){
-        this.userRepository = userRepository;
-        this.userService = userService;
-    }*/
-
-    /*
-    @RequestMapping("/getUser/{idUser}")
-    public User getUser(@PathVariable final Integer idUser){
-
-        return userRepository.findById(idUser);
-    }
-
-    @RequestMapping("/deleteUser/{idUser}")
-    public void deleteUser(@PathVariable final Integer idUser){
-        userRepository.delete(idUser);
-    }
-
-    @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
-    public List<User> getUsers(){
-        return userRepository.findAll();
-    }
-
-    @RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
-    public void updateUser(@RequestBody final User user){
-        userRepository.save(user);
-    }*/
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public List<User> addUser(@RequestBody User user) throws Exception {
+        //System.out.println(Thread.currentThread());
+        //CompletableFuture<List<User>> userList = userService.userList;
 
-        System.out.println("breakpoint");
+        //CompletableFuture<List<User>> userList =CompletableFuture.completedFuture(userService.getCheckedUsers());
+        //CompletableFuture<List<User>> userList =CompletableFuture.supplyAsync(() ->userService.getCheckedUsers());
+        //System.out.println(Thread.currentThread());
         userService.addUser(user);
-
+        //userService.getCheckedUsers();
         return userService.getUsers();
     }
+
+    /*@RequestMapping(value = "/getCheckedUser", method = RequestMethod.GET)
+    public void getCheckedUser() throws ExecutionException, InterruptedException {
+        userService.getCheckedUsers();
+    }*/
 
 }
