@@ -17,7 +17,7 @@ public class ShippingController {
     private final ShippingService shippingService;
 
     @RequestMapping(value = "/toOrder", method = RequestMethod.POST)
-    public void addUser(@RequestBody Order order){
+    public void toOrder(@RequestBody Order order){
 
         shippingService.toOrder(order);
 
