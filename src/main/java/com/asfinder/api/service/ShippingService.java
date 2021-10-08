@@ -21,7 +21,7 @@ public class ShippingService {
     public void toOrder(Order order){
         order.setCreationDate(new Date());
         orderRepository.save(order);
-        rabbitMqService.send("asfinder_qex","sales_amazon", "order txt");
+        rabbitMqService.send("asfinder_qex","sales_amazon", order);
 
     }
 }
