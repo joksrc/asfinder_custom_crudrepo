@@ -42,36 +42,13 @@ public class UserService {
 
     }
 
-    public CompletableFuture<List<User>> userList = CompletableFuture.supplyAsync(() -> {
-        System.out.println("getChekedUser into CompFuture: "+Thread.currentThread());
-        return getListOfUsers();
-    }).thenCompose(users -> {
-        List<User> checkedUsers = null;
-        try{
-            TimeUnit.SECONDS.sleep(1);
-            checkedUsers = users.get().stream().map(
-                    user->{
-                        user.setFirstName(user.getFirstName().toUpperCase());
-                        user.setLastName(user.getLastName().toUpperCase());
-                        return user;
-                    }).collect(Collectors.toList());
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        System.out.println("Tarea terminada");
-        return CompletableFuture.completedFuture(checkedUsers);
-
-    });
-
     public List<User> getCheckedUsers() throws ExecutionException, InterruptedException {
         System.out.println("getChekedUser: "+Thread.currentThread());
-        CompletableFuture<List<User>> userList = CompletableFuture.supplyAsync(() -> {
-            System.out.println("getChekedUser into CompFuture: "+Thread.currentThread());
-            return getListOfUsers();
-                }).thenCompose(users -> {
+        CompletableFuture<List<User>> userList = CompletableFuture.supplyAsync(() -> this.getListOfUsers())
+                .thenCompose(users -> {
             List<User> checkedUsers = null;
             try{
-                TimeUnit.SECONDS.sleep(25);
+                TimeUnit.SECONDS.sleep(10);
                 checkedUsers = users.get().stream().map(
                         user->{
                             user.setFirstName(user.getFirstName().toUpperCase());
@@ -83,25 +60,17 @@ public class UserService {
             }
             return CompletableFuture.completedFuture(checkedUsers);
         });
-        //userList.get().forEach(System.out::println);
+
         for (User user : userList.get()) {
-            System.out.println(user.getFirstName());
+            System.out.println(user.getIdUser()+" - "+user.getFirstName());
         }
         return userList.get();
     }
 
     private CompletableFuture<List<User>> getListOfUsers() {
-        List<User> users = new ArrayList<>();
+        List<User> users;
 
-        //users = this.getUsers();
-        users.add(new User("Jack", "Reacher", "mx"));
-        users.add(new User("Remington", "Steele", "es"));
-        users.add(new User("Laura", "Holt", "fr"));
-        users.add(new User("Jonathan", "Raven", "it"));
-        users.add(new User("Tom", "Hanson", "br"));
-        users.add(new User("Alexander", "Scott", "eu"));
-        users.add(new User("Jim", "Phelps", "cr"));
-
+        users = this.getUsers();
         return CompletableFuture.completedFuture(users);
     }
 }
