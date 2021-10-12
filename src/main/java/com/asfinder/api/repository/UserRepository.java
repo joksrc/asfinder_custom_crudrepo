@@ -1,9 +1,8 @@
 package com.asfinder.api.repository;
 
 import com.asfinder.api.model.User;
+import org.springframework.data.repository.CrudRepository;
 
+public interface UserRepository extends CrudRepository<User, Integer> {
 
-public interface UserRepository extends GenericRepository<User, Integer> {
-
-//    Boolean selectExistsUsername(String username);
 }

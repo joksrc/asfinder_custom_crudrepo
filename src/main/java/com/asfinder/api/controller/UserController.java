@@ -15,10 +15,19 @@ public class UserController {
         this.userService = userService;
     }
 
+    @RequestMapping(value = "/getUsersByCountry/{countryKey}", method = RequestMethod.GET)
+    public List<User> getUsersByCountry(@PathVariable String countryKey)  {
+        return userService.getUsersByCountry(countryKey);
+    }
+
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public List<User> addUser(@RequestBody User user) throws Exception {
-
         userService.addUser(user);
+        return userService.getUsers();
+    }
+
+    @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
+    public List<User> getUsers()  {
         return userService.getUsers();
     }
 

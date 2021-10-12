@@ -2,7 +2,9 @@ package com.asfinder.api.service;
 
 import com.asfinder.api.model.User;
 import com.asfinder.api.repository.UserRepository;
+import com.asfinder.api.repository.UserRepositoryCustom;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,13 +17,20 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserRepositoryCustom userRepositoryCustom;
+
+    public List<User> getUsersByCountry(String countryKey){
+        return userRepositoryCustom.getUsersByCountry(countryKey);
+    }
 
     public List<User> getUsers(){
-        return userRepository.findAll();
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(users::add);
+        return users;
     }
 
     @Transactional
