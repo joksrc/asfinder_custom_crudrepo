@@ -18,8 +18,6 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idOrder;
-
     private Date creationDate;
-
     private String description;
 }

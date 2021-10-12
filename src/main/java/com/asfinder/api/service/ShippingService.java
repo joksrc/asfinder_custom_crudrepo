@@ -23,5 +23,7 @@ public class ShippingService {
         orderRepository.save(order);
         rabbitMqService.send("asfinder_qex","sales_amazon", order);
 
+        //rabbitMqService.send("asfinder_qex","sales_amazon", new Gson().toJson(order));
+
     }
 }

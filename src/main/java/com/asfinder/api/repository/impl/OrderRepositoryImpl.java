@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public class OrderRepositoryImpl
         extends GenericRepositoryImpl<Order, Integer>
         implements OrderRepository {
+    
 }

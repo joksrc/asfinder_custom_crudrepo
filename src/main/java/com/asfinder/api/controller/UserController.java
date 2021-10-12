@@ -2,7 +2,6 @@ package com.asfinder.api.controller;
 
 import com.asfinder.api.model.User;
 import com.asfinder.api.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

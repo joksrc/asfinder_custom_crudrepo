@@ -17,9 +17,7 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idProduct;
-
     private String name;
-
     private int quantity;
 
 }
